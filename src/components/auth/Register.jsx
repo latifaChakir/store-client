@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosClient from '../../axios-client'; 
 
 function Register() {
@@ -15,6 +15,7 @@ function Register() {
     });
     const [error, setError] = useState(null); 
     const [success, setSuccess] = useState(null); 
+    const navigate = useNavigate(); 
 
     const handleChangeAdresse = (e) => {
         const { name, value } = e.target;
@@ -35,6 +36,7 @@ function Register() {
         };
         try {
             const response = await axiosClient.post('/auth/register', registrationData);
+            navigate("/login"); 
             console.log(response.data);
             setSuccess("Inscription réussie ! Vous pouvez vous connecter."); 
             setError(null);
